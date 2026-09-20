@@ -2,6 +2,7 @@
 
 
 #using xacro macro for wheels only because code is same for wheels
+#from xacro only...macro files can be created
 
 <xacro:property name="wheel_radius" value="0.1"/>
 <xacro:property name="wheel_width" value="0.05"/>
