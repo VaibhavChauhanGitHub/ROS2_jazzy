@@ -4,12 +4,8 @@
 <!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
 <!-- =================================================================================== -->
 <robot name="simple_robot">
-  
-
-
-#using xacro macro for wheels only because code is same for wheels
-
-
+  <!-- using xacro macro for wheels only because code is same for wheels -->
+  <!-- from xacro only...macro files can be created -->
   <link name="base_link">
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -50,5 +46,17 @@
     <child link="right_wheel"/>
     <origin rpy="0 0 0" xyz="0.0 -0.225 -0.05"/>
     <axis xyz="0 1 0"/>
+  </joint>
+  <link name="lidar_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.1" radius="0.05"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="lidar_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidar_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0.1"/>
   </joint>
 </robot>
