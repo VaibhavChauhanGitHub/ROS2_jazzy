@@ -23,7 +23,9 @@
       <geometry>
         <cylinder length="0.05" radius="0.1"/>
       </geometry>
-      <material name="black"/>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
     </visual>
   </link>
   <joint name="left_wheel_joint" type="continuous">
@@ -38,7 +40,9 @@
       <geometry>
         <cylinder length="0.05" radius="0.1"/>
       </geometry>
-      <material name="black"/>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
     </visual>
   </link>
   <joint name="right_wheel_joint" type="continuous">
@@ -57,6 +61,30 @@
   <joint name="lidar_joint" type="fixed">
     <parent link="base_link"/>
     <child link="lidar_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0.1"/>
+  </joint>
+  <link name="camera_link">
+    <visual>
+      <geometry>
+        <box size="0.1 0.1 0.05"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="camera_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0.1"/>
+  </joint>
+  <link name="camera_optical_frame">
+    <visual>
+      <geometry>
+        <box size="0.1 0.1 0.05"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="camera_optical_frame_joint" type="fixed">
+    <parent link="camera_link"/>
+    <child link="camera_optical_frame"/>
     <origin rpy="0 0 0" xyz="0 0 0.1"/>
   </joint>
 </robot>
