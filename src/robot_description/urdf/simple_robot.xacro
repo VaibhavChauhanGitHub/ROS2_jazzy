@@ -8,17 +8,30 @@
 <xacro:property name="wheel_width" value="0.05"/>
 <xacro:property name="wheel_offset" value="0.225"/>
 
-<link name="base_link">
+  <link name="base_link">
     <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-            <box size="0.5 0.4 0.1"/>
-        </geometry>
-        <material name="blue">
-            <color rgba="0 0 1 1"/>
-        </material>
+      <geometry>
+        <box size="0.5 0.4 0.1"/>
+      </geometry>
+      <material name="blue"/>
     </visual>
-</link>
+
+    <collision>
+      <geometry>
+        <box size="0.5 0.4 0.1"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="5.0"/>
+      <inertia ixx="0.5" iyy="0.5" izz="0.5"
+              ixy="0.0" ixz="0.0" iyz="0.0"/>
+    </inertial>
+  </link>
+
+  <gazebo reference="base_link">
+    <material>Gazebo/Blue</material>
+  </gazebo>
 
 <xacro:macro name="wheel" params="name y_offset">
     <link name="${name}">
@@ -31,12 +44,25 @@
                 <color rgba="0 0 0 1"/>
             </material>
         </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+            <geometry>
+                <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <mass value="1.0"/>
+            <inertia ixx="0.01" iyy="0.01" izz="0.01"
+                     ixy="0.0" ixz="0.0" iyz="0.0"/>
+        </inertial>
     </link>
 
     <joint name="${name}_joint" type="continuous">
         <parent link="base_link"/>
         <child link="${name}"/>
-        <origin xyz="0.0 ${y_offset} -0.05" rpy="0 0 0"/>
+        <origin xyz="0 ${y_offset} -0.05" rpy="0 0 0"/>
         <axis xyz="0 1 0"/>
     </joint>
 </xacro:macro>
@@ -64,25 +90,19 @@
         </geometry>
     </visual>
 </link>
+
 <joint name="camera_joint" type="fixed">
     <parent link="base_link"/>
     <child link="camera_link"/>
-    <origin xyz="0 0 0.1" rpy="0 0 0"/>
+    <origin xyz="0.15 0 0.1" rpy="0 0 0"/>
 </joint>
 
-<link name="camera_optical_frame">
-    <visual>
-        <geometry>
-            <box size="0.1 0.1 0.05"/>
-        </geometry>
-    </visual>
-</link>
+<link name="camera_optical_frame"/>
+
 <joint name="camera_optical_frame_joint" type="fixed">
     <parent link="camera_link"/>
     <child link="camera_optical_frame"/>
-    <origin xyz="0 0 0.1" rpy="0 0 0"/>
+    <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708"/>
 </joint>
-
-
 
 </robot>
