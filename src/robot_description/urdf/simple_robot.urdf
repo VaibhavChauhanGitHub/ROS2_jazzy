@@ -240,7 +240,7 @@
       <wheel_separation>0.4</wheel_separation>
       <wheel_radius>0.1</wheel_radius>
       <odom_topic>/odom</odom_topic>
-      <cmd_vel_topic>/cmd_vel</cmd_vel_topic>
+      <cmd_vel_topic>/model/simple_robot/cmd_vel</cmd_vel_topic>
       <tf_topic>/tf</tf_topic>
       <frame_id>odom</frame_id>
       <child_frame_id>base_link</child_frame_id>

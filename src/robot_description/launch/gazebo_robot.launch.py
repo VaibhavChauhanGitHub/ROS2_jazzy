@@ -106,7 +106,17 @@ def generate_launch_description():
         name='cmd_vel_bridge',
         output='screen',
         arguments=[
-            '/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist',
+        '/model/simple_robot/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist',
+        ],
+    )
+
+    teleop = Node(
+        package='teleop_twist_keyboard',
+        executable='teleop_twist_keyboard',
+        name='teleop_twist_keyboard',
+        output='screen',
+        remappings=[
+            ('/cmd_vel', '/model/simple_robot/cmd_vel'),
         ],
     )
 
@@ -172,7 +182,7 @@ def generate_launch_description():
         ),
         DeclareLaunchArgument(
             'use_slam',
-            default_value='false',
+            default_value='true',
             description='Set to true to run slam_toolbox for mapping; false when using nav2 with a pre-built map'
         ),
         SetEnvironmentVariable('FASTDDS_BUILTIN_TRANSPORTS', 'UDPv4'),
@@ -247,7 +257,9 @@ def generate_launch_description():
         ),
 
         cmd_vel_bridge,
+        teleop,
         joint_state_pub,
+
         GroupAction(
             condition=IfCondition(use_slam),
             actions=[
